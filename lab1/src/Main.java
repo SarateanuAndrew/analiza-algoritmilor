@@ -1,59 +1,73 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        int n = 10;
-        System.out.println("N = " + n + "\n");
-        //Solution 1
-        System.out.print("1. Recursive solution result = ");
-        long start1 = System.nanoTime();
-        System.out.println(solution1(n));
-        long end1 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end1 - start1));
+        List<Integer> integers = new ArrayList<>(List.of(501, 631, 794, 1000, 1259, 1585, 1995, 2512, 3162, 3981, 5012,
+                6310, 7943, 10000, 12589, 15849));
 
-        //Solution 2
-        System.out.println();
-        System.out.print("2. Dynamic Programming result = ");
-        long start2 = System.nanoTime();
-        System.out.println(solution2(n));
-        long end2 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end2 - start2));
+        List<Integer> integersRecursive = new ArrayList<>(List.of(5, 7, 10, 12, 15, 17, 20, 22, 25, 27, 30, 32, 35, 37, 40, 42, 45));
+        System.out.print("Recursive solution result = ");
+        for (Integer integer : integersRecursive) {
+            System.out.println();
+            System.out.print("Recursive solution for n = " + integer + " result = ");
+            long start1 = System.nanoTime();
+            System.out.println(solution1(integer));
+            long end1 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end1 - start1));
+        }
 
-        //Solution 3
-        System.out.println();
-        System.out.print("3. Dynamic Programming with Space Optimization result = ");
-        long start3 = System.nanoTime();
-        System.out.println(solution3(n));
-        long end3 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end3 - start3));
+        for (Integer integer : integers) {
+            System.out.println();
+            System.out.print("Dynamic Programming for n = " + integer + " result = ");
+            long start2 = System.nanoTime();
+            System.out.println(solution2(integer));
+            long end2 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end2 - start2));
+        }
 
-        //Solution 4
-        System.out.println();
-        System.out.print("4. Divide and Conquer result = ");
-        long start4 = System.nanoTime();
-        System.out.println(solution4(n));
-        long end4 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end4 - start4));
+        for (Integer integer : integers) {
+            System.out.println();
+            System.out.print("Dynamic Programming with Space Optimization for n = " + integer + " result = ");
+            long start3 = System.nanoTime();
+            System.out.println(solution3(integer));
+            long end3 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end3 - start3));
+        }
 
-        //Solution 5
-        System.out.println();
-        System.out.print("5. Divide and Conquer(With Optimized Power Function) result = ");
-        long start5 = System.nanoTime();
-        System.out.println(solution5(n));
-        long end5 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end5 - start5));
+        for (Integer integer : integers) {
+            System.out.println();
+            System.out.print("Using power of the matrix for n = " + integer + " result = ");
+            long start4 = System.nanoTime();
+            System.out.println(solution4(integer));
+            long end4 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end4 - start4));
+        }
 
-        //Solution 6
-        System.out.println();
-        System.out.print("6. Iterative Solution result = ");
-        long start6 = System.nanoTime();
-        System.out.println(solution6(n));
-        long end6 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end6 - start6));
+        for (Integer integer : integers) {
+            System.out.println();
+            System.out.print("Divide and Conquer(With Optimized Power Function) for n = " + integer + " result = ");
+            long start5 = System.nanoTime();
+            System.out.println(solution5(integer));
+            long end5 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end5 - start5));
+        }
+
+        for (Integer integer : integers) {
+            //Solution 6
+            System.out.println();
+            System.out.print("Iterative Solution for n = " + integer + " result = ");
+            long start6 = System.nanoTime();
+            System.out.println(solution6(integer));
+            long end6 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end6 - start6));
+        }
     }
 
-    public static void power1(int[][] F, int n) {
+    public static void power1(long[][] F, int n) {
         if (n == 0 || n == 1)
             return;
-        int[][] M = new int[][]{{1, 1}, {1, 0}};
+        long[][] M = new long[][]{{1, 1}, {1, 0}};
 
         power1(F, n / 2);
         multiply(F, F);
@@ -62,20 +76,20 @@ public class Main {
             multiply(F, M);
     }
 
-    public static void multiply(int[][] F, int[][] M) {
-        int x = F[0][0] * M[0][0] + F[0][1] * M[1][0];
-        int y = F[0][0] * M[0][1] + F[0][1] * M[1][1];
-        int z = F[1][0] * M[0][0] + F[1][1] * M[1][0];
-        int w = F[1][0] * M[0][1] + F[1][1] * M[1][1];
+    public static void multiply(long[][] F, long[][] M) {
+        long x = F[0][0] * M[0][0] + F[0][1] * M[1][0];
+        long y = F[0][0] * M[0][1] + F[0][1] * M[1][1];
+        long z = F[1][0] * M[0][0] + F[1][1] * M[1][0];
+        long w = F[1][0] * M[0][1] + F[1][1] * M[1][1];
         F[0][0] = x;
         F[0][1] = y;
         F[1][0] = z;
         F[1][1] = w;
     }
 
-    public static void power(int[][] F, int n) {
+    public static void power(long[][] F, int n) {
         int i;
-        int[][] M = new int[][]{{1, 1}, {1, 0}};
+        long[][] M = new long[][]{{1, 1}, {1, 0}};
 
         for (i = 2; i <= n; i++)
             multiply(F, M);
@@ -117,17 +131,17 @@ public class Main {
         return b;
     }
 
-    public static int solution4(int n) {
-        int[][] F = new int[][]{{1, 1}, {1, 0}};
+    public static Long solution4(int n) {
+        long[][] F = new long[][]{{1, 1}, {1, 0}};
         if (n == 0)
-            return 0;
+            return 0L;
         power(F, n - 1);
 
-        return F[0][0];
+        return (long) F[0][0];
     }
 
-    public static int solution5(int n) {
-        int[][] F = new int[][]{{1, 1}, {1, 0}};
+    public static long solution5(int n) {
+        long[][] F = new long[][]{{1, 1}, {1, 0}};
         if (n == 0)
             return 0;
         power1(F, n - 1);
