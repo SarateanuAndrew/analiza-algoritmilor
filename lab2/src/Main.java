@@ -4,50 +4,83 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         Random random = new Random();
-//        int[] arr = new int[100];
-//        int[] arr = new int[1000];
-        int[] arr = new int[10000];
-        Arrays.setAll(arr, i -> random.nextInt(1000));
-        int n = arr.length - 1;
-        System.out.println("For 100 elements");
-        System.out.println("Quick Sort");
-        long start1 = System.nanoTime();
-        quickSort(arr, 0, n);
-        long end1 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end1 - start1));
 
-        System.out.println();
-        System.out.println("Merge Sort");
-        long start2 = System.nanoTime();
-        mergeSort(arr, 0, n);
-        long end2 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end2 - start2));
+        for (int i = 10000; i <= 100000; i = i + 10000) {
+            int[] arr = new int[i];
+            Arrays.setAll(arr, j -> random.nextInt(1000));
+            int n = arr.length - 1;
+            System.out.println("+++++++++++++++++++++++++++ For n = " + i + " +++++++++++++++++++++++++++++");
+            System.out.println("Quick Sort");
+            long start1 = System.nanoTime();
+            quickSort(arr, 0, n);
+            long end1 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end1 - start1));
 
-        System.out.println();
-        System.out.println("Heap Sort");
-        long start3 = System.nanoTime();
-        heapSort(arr);
-        long end3 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end3 - start3));
+            System.out.println();
+            System.out.println("Merge Sort");
+            long start2 = System.nanoTime();
+            mergeSort(arr, 0, n);
+            long end2 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end2 - start2));
 
-        System.out.println();
-        System.out.println("Counting Sort");
-        long start4 = System.nanoTime();
-        countingSort(arr);
-        long end4 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end4 - start4));
+            System.out.println();
+            System.out.println("Heap Sort");
+            long start3 = System.nanoTime();
+            heapSort(arr);
+            long end3 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end3 - start3));
 
-        System.out.println();
-        System.out.println("Selection Sort");
-        long start5 = System.nanoTime();
-        selectionSort(arr);
-        long end5 = System.nanoTime();
-        System.out.println("Elapsed Time in nano seconds: " + (end5 - start5));
+            System.out.println();
+            System.out.println("Counting Sort");
+            long start4 = System.nanoTime();
+            countingSort(arr);
+            long end4 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end4 - start4));
 
+            System.out.println();
+            System.out.println("Selection Sort");
+            long start5 = System.nanoTime();
+            selectionSort(arr);
+            long end5 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (end5 - start5));
 
-        Arrays.stream(arr).forEach(value -> System.out.print(value + " "));
-        System.out.println();
-        System.out.print("Array length: " + arr.length);
+            System.out.println();
+            System.out.println("1. Sieve of Eratosthenes");
+            long startTime1 = System.nanoTime();
+            sieveOfEratosthenes1(i);
+            long endTime1 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (endTime1 - startTime1));
+
+            System.out.println();
+            System.out.println("2. Sieve of Eratosthenes");
+            long startTime2 = System.nanoTime();
+            sieveOfEratosthenes2(i);
+            long endTime2 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (endTime2 - startTime2));
+
+            System.out.println();
+            System.out.println("3. Sieve of Eratosthenes");
+            long startTime3 = System.nanoTime();
+            sieveOfEratosthenes3(i);
+            long endTime3 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (endTime3 - startTime3));
+
+            System.out.println();
+            System.out.println("4. Sieve of Eratosthenes");
+            long startTime4 = System.nanoTime();
+            sieveOfEratosthenes4(i);
+            long endTime4 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (endTime4 - startTime4));
+
+            System.out.println();
+            System.out.println("5. Sieve of Eratosthenes");
+            long startTime5 = System.nanoTime();
+            sieveOfEratosthenes5(i);
+            long endTime5 = System.nanoTime();
+            System.out.println("Elapsed Time in nano seconds: " + (endTime5 - startTime5));
+
+            System.out.println();
+        }
     }
 
     //Quick Sort Start
@@ -250,4 +283,104 @@ public class Main {
         }
     }
     //Selection Sort End
+
+    //1. sieveOfEratosthenes Start
+    public static void sieveOfEratosthenes1(int n) {
+        boolean[] c = new boolean[n + 1];
+        Arrays.fill(c, true);
+        c[0] = false;
+        c[1] = false;
+        int i = 2;
+        while (i <= n) {
+            if (c[i]) {
+                int j = 2 * i;
+                while (j <= n) {
+                    c[j] = false;
+                    j += i;
+                }
+            }
+            i++;
+        }
+    }
+    //1. sieveOfEratosthenes End
+
+    //2. sieveOfEratosthenes Start
+    public static void sieveOfEratosthenes2(int n) {
+        boolean[] c = new boolean[n + 1];
+        Arrays.fill(c, true);
+        c[0] = false;
+        c[1] = false;
+        int i = 2;
+        while (i <= n) {
+            int j = 2 * i;
+            while (j <= n) {
+                c[j] = false;
+                j += i;
+            }
+            i++;
+        }
+    }
+    //2. sieveOfEratosthenes End
+
+    //3. sieveOfEratosthenes Start
+    public static void sieveOfEratosthenes3(int n) {
+        boolean[] c = new boolean[n + 1];
+        Arrays.fill(c, true);
+        c[0] = false;
+        c[1] = false;
+        int i = 2;
+        while (i <= n) {
+            if (c[i]) {
+                int j = i + 1;
+                while (j <= n) {
+                    if (j % i == 0) {
+                        c[j] = false;
+                    }
+                    j++;
+                }
+            }
+            i++;
+        }
+    }
+    //3. sieveOfEratosthenes End
+
+    //4. sieveOfEratosthenes Start
+    public static void sieveOfEratosthenes4(int n) {
+        boolean[] c = new boolean[n + 1];
+        Arrays.fill(c, true);
+        c[0] = false;
+        c[1] = false;
+        int i = 2;
+        while (i <= n) {
+            int j = 1;
+            while (j < i) {
+                if (i % j == 0) {
+                    c[i] = false;
+                }
+                j++;
+            }
+            i++;
+        }
+    }
+    //4. sieveOfEratosthenes End
+
+    //5. sieveOfEratosthenes Start
+    public static void sieveOfEratosthenes5(int n) {
+        boolean[] c = new boolean[n + 1];
+        Arrays.fill(c, true);
+        c[0] = false;
+        c[1] = false;
+        int i = 2;
+        while (i <= n) {
+            int j = 2;
+            while (j <= Math.sqrt(i)) {
+                if (i % j == 0) {
+                    c[i] = false;
+                }
+                j++;
+            }
+            i++;
+        }
+    }
+    //5. sieveOfEratosthenes End
 }
